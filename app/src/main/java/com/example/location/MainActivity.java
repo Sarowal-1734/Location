@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
         Uri locationUri = Uri.parse(locationUriString);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, locationUri);
         startActivity(mapIntent);
-        // Mumbai
-//        double lat = 19.076090;
-//        double lon = 72.877427;
-
         // My Home
 //        double lat = 25.1792086;
 //        double lon = 89.1227199;
@@ -130,6 +126,19 @@ public class MainActivity extends AppCompatActivity {
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
+    // If everything is alright then
+    @Override
+    public void
+    onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_ID) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastLocation();
+            }
+        }
+    }
+
     // method to request for permissions
     private void requestPermissions() {
         ActivityCompat.requestPermissions(this, new String[]{
@@ -143,18 +152,6 @@ public class MainActivity extends AppCompatActivity {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    // If everything is alright then
-    @Override
-    public void
-    onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == PERMISSION_ID) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
-            }
-        }
-    }
 
     @Override
     protected void onPause() {
