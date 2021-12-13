@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
@@ -46,10 +45,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onOpenMapButtonClicked(View view) {
-        String locationUriString = "geo:" + latitude + "," + longitude + "?q=()@" + latitude + "," + longitude;
-        Uri locationUri = Uri.parse(locationUriString);
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, locationUri);
-        startActivity(mapIntent);
+        // Open in Google_Map App
+//        String locationUriString = "geo:" + latitude + "," + longitude + "?q=()@" + latitude + "," + longitude;
+//        Uri locationUri = Uri.parse(locationUriString);
+//        Intent mapIntent = new Intent(Intent.ACTION_VIEW, locationUri);
+//        startActivity(mapIntent);
+        // Open MapActivity
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("lat", latitude);
+        intent.putExtra("lon", longitude);
+        startActivity(intent);
         // My Home
 //        double lat = 25.1792086;
 //        double lon = 89.1227199;
